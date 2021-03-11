@@ -5,7 +5,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class EmployeePayrollService {
-    private List<EmployeePayroll> employeePayrollList;
+
+    public void printData(Object fileIo) {
+    }
+
+    public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_IO}
+    public List<EmployeePayroll> employeePayrollList;
 
     public EmployeePayrollService(List<EmployeePayroll> employeePayrollList) {
         this.employeePayrollList = employeePayrollList;
@@ -21,11 +26,11 @@ public class EmployeePayrollService {
         employeePayrollService.writeEmployeePayroll();
     }
 
-    private void writeEmployeePayroll() {
+    public void writeEmployeePayroll() {
         System.out.println("\nWriting Employee Payroll Roaster to Console\n" + employeePayrollList);
     }
 
-    private void readEmployeePayroll(Scanner consoleINputReader) {
+    public void readEmployeePayroll(Scanner consoleINputReader) {
         System.out.println("Enter Employee ID: ");
         int id = consoleINputReader.nextInt();
         System.out.println("Enter Employee Name: ");

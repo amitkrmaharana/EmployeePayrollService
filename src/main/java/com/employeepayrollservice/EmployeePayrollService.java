@@ -27,7 +27,7 @@ public class EmployeePayrollService {
     }
 
     public void writeEmployeePayroll() {
-        System.out.println("\nWriting Employee Payroll Roaster to Console\n" + employeePayrollList);
+        employeePayrollList.stream().forEach(System.out::println);
     }
 
     public void readEmployeePayroll(Scanner consoleINputReader) {

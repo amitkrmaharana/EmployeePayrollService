@@ -23,5 +23,17 @@ public class EmployeePayrollServiceTest {
         long entries = employeePayrollService.countEntries(FILE_IO);
         Assertions.assertEquals(3, entries);
     }
+    @Test
+    public void givenFileOnReadingFromFileShouldMatchEmployeeCount() {
+        EmployeePayroll[] arrayOfEmps = {
+                new EmployeePayroll(1, "Athif",100000.0),
+                new EmployeePayroll(2, "Ashish",150000.0),
+                new EmployeePayroll(3, "Kevin",200000.0),
+        };
+        EmployeePayrollService employeePayrollService = new EmployeePayrollService(Arrays.asList(arrayOfEmps));
+        employeePayrollService.writeEmployeePayroll(FILE_IO);;
+        long entries = employeePayrollService.countEntries(FILE_IO);
+        Assertions.assertEquals(3, entries);
+    }
 
 }

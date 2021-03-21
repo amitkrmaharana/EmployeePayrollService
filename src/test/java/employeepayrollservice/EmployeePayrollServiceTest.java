@@ -4,10 +4,8 @@ import com.employeepayrollservice.EmployeePayroll;
 import com.employeepayrollservice.EmployeePayrollService;
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.List;
-
 import static com.employeepayrollservice.EmployeePayrollService.IOService.DB_IO;
 import static com.employeepayrollservice.EmployeePayrollService.IOService.FILE_IO;
 

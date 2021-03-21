@@ -3,7 +3,9 @@ package com.employeepayrollservice;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EmployeePayrollDBService {
     private PreparedStatement employeePayrollDataStatement;
@@ -103,5 +105,22 @@ public class EmployeePayrollDBService {
             throwables.printStackTrace();
         }
         return employeePayrollList;
+    }
+
+    public Map<String, Double> getAverageSalaryByGender() {
+        String sql = "select gender, avg(salary) as avg_salary from employee_payroll group by gender;";
+        Map<String,Double> genderToAverageSalaryMap = new HashMap<>();
+        try(Connection connection = this.getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                String gender = resultSet.getString("gender");
+                double salary = resultSet.getDouble("avg_salary");
+                genderToAverageSalaryMap.put(gender, salary);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return genderToAverageSalaryMap;
     }
 }

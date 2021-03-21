@@ -2,6 +2,7 @@ package com.employeepayrollservice;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 public class EmployeePayroll {
     protected int id;
@@ -27,5 +28,13 @@ public class EmployeePayroll {
                 ", name='" + name + '\'' +
                 ", salary=" + salary +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EmployeePayroll that = (EmployeePayroll) o;
+        return id == that.id && Double.compare(that.salary, salary) == 0 && name.equals(that.name);
     }
 }

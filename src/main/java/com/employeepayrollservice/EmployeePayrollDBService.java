@@ -29,15 +29,7 @@ public class EmployeePayrollDBService {
 
     public List<EmployeePayroll> readData() {
         String sql = "select * from employee_payroll; ";
-        List<EmployeePayroll> employeePayrollList = new ArrayList<>();
-        try (Connection connection = this.getConnection()) {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            employeePayrollList = this.getEmployeePayrollData(resultSet);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return employeePayrollList;
+        return this.getEmployeePayrollDataUsingDB(sql);
     }
 
     public int updateEmployeeData(String name, double salary) {
@@ -93,5 +85,23 @@ public class EmployeePayrollDBService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<EmployeePayroll> getEmployeePayrollforDateRange(LocalDate startDate, LocalDate endDate) {
+        String sql = String.format("Select * from employee_payroll where start between '%s' and '%s';",
+                                    Date.valueOf(startDate), Date.valueOf(endDate));
+        return this.getEmployeePayrollDataUsingDB(sql);
+    }
+
+    private List<EmployeePayroll> getEmployeePayrollDataUsingDB(String sql) {
+        List<EmployeePayroll> employeePayrollList = new ArrayList<>();
+        try (Connection connection = this.getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            employeePayrollList = this.getEmployeePayrollData(resultSet);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return employeePayrollList;
     }
 }

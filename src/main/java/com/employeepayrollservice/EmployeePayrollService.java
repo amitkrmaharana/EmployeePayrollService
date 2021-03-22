@@ -7,6 +7,9 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class EmployeePayrollService {
+    public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_IO}
+    public List<EmployeePayroll> employeePayrollList;
+    private static EmployeePayrollDBService employeePayrollDBService;
     public List<EmployeePayroll> readEmployeePayrollforDateRange(IOService ioService, LocalDate startDate, LocalDate endDate) {
         if (ioService.equals(IOService.DB_IO))
             return employeePayrollDBService.getEmployeePayrollforDateRange(startDate,endDate);
@@ -23,9 +26,6 @@ public class EmployeePayrollService {
         employeePayrollList.add(employeePayrollDBService.addEmployeeToPayroll(name,salary,startDate,gender));
     }
 
-    public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_IO}
-    public List<EmployeePayroll> employeePayrollList;
-    private static EmployeePayrollDBService employeePayrollDBService;
 
     public EmployeePayrollService() {
         employeePayrollDBService = new EmployeePayrollDBService().getInstance();

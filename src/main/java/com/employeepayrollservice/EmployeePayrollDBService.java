@@ -125,7 +125,7 @@ public class EmployeePayrollDBService {
     }
 
     public EmployeePayroll addEmployeeToPayroll(String name, double salary, LocalDate startDate, String gender) {
-        int emploeeId = -1;
+        int employeeId = -1;
         EmployeePayroll employeePayrollData = null;
         String sql = String.format("insert into employee_payroll (name, gender, salary, start)" +
                                     "values ('%s', '%s', '%s', '%s')", name,gender,salary,Date.valueOf(startDate));
@@ -134,8 +134,10 @@ public class EmployeePayrollDBService {
             int rowAffected = statement.executeUpdate(sql,statement.RETURN_GENERATED_KEYS);
             if (rowAffected == 1) {
                 ResultSet resultSet = statement.getGeneratedKeys();
-                if (resultSet.next()) emploeeId = resultSet.getInt(1);
+                if (resultSet.next())
+                    employeeId = resultSet.getInt(1);
             }
+            employeePayrollData = new EmployeePayroll(employeeId,name,gender,salary,startDate);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

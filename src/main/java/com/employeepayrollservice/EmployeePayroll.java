@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class EmployeePayroll {
+    protected String gender;
     protected int id;
     protected String name;
     protected double salary;
@@ -19,6 +20,11 @@ public class EmployeePayroll {
     public EmployeePayroll(int id, String name, double salary, LocalDate start) {
         this(id, name, salary);
         this.start = start;
+    }
+
+    public EmployeePayroll(int id, String name, String gender, double salary, LocalDate startDate) {
+        this(id, name,salary,startDate);
+        this.gender = gender;
     }
 
     @Override

@@ -7,7 +7,7 @@ public class EmployeePayroll {
     protected String name;
     protected double salary;
     protected LocalDate start;
-    String[] department;
+    protected String[] department;
 
     public EmployeePayroll(int id, String name, Double salary) {
         this.id = id;
@@ -20,9 +20,10 @@ public class EmployeePayroll {
         this.start = start;
     }
 
-    public EmployeePayroll(int id, String name, double salary, LocalDate start, String[] department) {
+    public EmployeePayroll(int id, String name, double salary, LocalDate start,String gender, String[] department) {
         this(id, name, salary, start);
         this.department = department;
+
     }
 
     @Override

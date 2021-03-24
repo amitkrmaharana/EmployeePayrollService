@@ -193,7 +193,7 @@ public class EmployeePayrollDBService {
                 sql = String.format("insert into department_details (employee_id, department_name) value (%s,'%s')", employeeId, depart);
                 statement.execute(sql);
             }
-            employeePayrollData = new EmployeePayroll(employeeId, name, salary, startDate, department);
+            employeePayrollData = new EmployeePayroll(employeeId, name, salary, startDate, gender, department);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             try {

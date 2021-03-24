@@ -99,7 +99,7 @@ public class EmployeePayrollServiceTest {
         Assert.assertTrue(result);
     }
     @Test
-    public void given6Employees_WhenAddedToDB_ShouldmatchEmployeeEntries() {
+    public void given6Employees_WhenAddedToDB_ShouldSyncWithDB() {
         EmployeePayroll[] arrayOfEmps = {
           new EmployeePayroll(0,"Jeff Bezos", "M", 100000.00, LocalDate.now() ),
           new EmployeePayroll(0,"Bill Gates", "M", 200000.00, LocalDate.now()),

@@ -39,6 +39,7 @@ public class EmployeePayrollServiceTest {
         long entries = employeePayrollService.countEntries(FILE_IO);
         Assert.assertEquals(3, entries);
     }
+    // JDBC
     @Test
     public void givenEmployeePayrollInDB_WhenRetrieved_ShouldMatchEmployeeCount() {
         EmployeePayrollService employeePayrollService = new EmployeePayrollService();
@@ -46,7 +47,7 @@ public class EmployeePayrollServiceTest {
         Assert.assertEquals(3,employeePayrollData.size());
     }
     @Test
-    public void givenNewSalaryForEmployee_whenUpdated_shoulSync() {
+    public void givenNewSalaryForEmployee_whenUpdated_shouldSync() {
         EmployeePayrollService employeePayrollService = new EmployeePayrollService();
         List<EmployeePayroll> employeePayrollData = employeePayrollService.readEmployeePayrollData(DB_IO);
         employeePayrollService.updateEmployeeSalary("Terisa",3000000.00);
@@ -71,11 +72,11 @@ public class EmployeePayrollServiceTest {
                             averageSalaryByGender.get("F").equals(3000000.00));
     }
     @Test
-    public void givenNewEmployee_WhenAdded_ShouldSyncWithDB() {
+    public void givenNewEmployee_WhenAdded_ShouldSyncWithAllTheTablesInDB() {
         EmployeePayrollService employeePayrollService = new EmployeePayrollService();
         employeePayrollService.readEmployeePayrollData(DB_IO);
-        employeePayrollService.addEmployeeToPayroll("Mark",5000000.00,LocalDate.now(),"M");
-        boolean result = employeePayrollService.checkEmployeePayrollSyncWithDB("Mark");
+        employeePayrollService.addEmployeeToPayroll("Angelina",4000000.00,LocalDate.now(),"F", new String[]{"Hr", "Marketing"});
+        boolean result = employeePayrollService.checkEmployeePayrollSyncWithDB("Angelina");
         Assert.assertTrue(result);
     }
 }

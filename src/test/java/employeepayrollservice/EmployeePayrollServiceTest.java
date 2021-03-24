@@ -44,7 +44,7 @@ public class EmployeePayrollServiceTest {
     public void givenEmployeePayrollInDB_WhenRetrieved_ShouldMatchEmployeeCount() {
         EmployeePayrollService employeePayrollService = new EmployeePayrollService();
         List<EmployeePayroll> employeePayrollData = employeePayrollService.readEmployeePayrollData(DB_IO);
-        Assert.assertEquals(3,employeePayrollData.size());
+        Assert.assertEquals(5,employeePayrollData.size());
     }
     @Test
     public void givenNewSalaryForEmployee_whenUpdated_shouldSync() {

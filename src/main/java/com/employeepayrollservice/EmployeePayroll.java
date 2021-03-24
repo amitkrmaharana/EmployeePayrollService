@@ -1,15 +1,13 @@
 package com.employeepayrollservice;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Objects;
 
 public class EmployeePayroll {
-    protected String gender;
     protected int id;
     protected String name;
     protected double salary;
     protected LocalDate start;
+    String[] department;
 
     public EmployeePayroll(int id, String name, Double salary) {
         this.id = id;
@@ -22,9 +20,9 @@ public class EmployeePayroll {
         this.start = start;
     }
 
-    public EmployeePayroll(int id, String name, String gender, double salary, LocalDate startDate) {
-        this(id, name,salary,startDate);
-        this.gender = gender;
+    public EmployeePayroll(int id, String name, double salary, LocalDate start, String[] department) {
+        this(id, name, salary, start);
+        this.department = department;
     }
 
     @Override

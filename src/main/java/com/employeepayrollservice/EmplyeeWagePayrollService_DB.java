@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Enumeration;
 
-import static java.sql.Driver.*;
 
 public class EmplyeeWagePayrollService_DB {
         public static void main(String[] args) {

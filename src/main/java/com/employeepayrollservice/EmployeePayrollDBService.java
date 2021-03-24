@@ -37,9 +37,23 @@ public class EmployeePayrollDBService {
     public int updateEmployeeData(String name, double salary) {
         return this.updateEmployeedataUsingStatement(name, salary);
     }
+    public int deleteEmployeeData(String name) {
+        return this.deleteEmployeedataUsingStatement(name);
+    }
 
     private int updateEmployeedataUsingStatement(String name, double salary) {
         String sql = String.format("update employee_payroll set salary = %.2f where name = '%s';", salary, name);
+        try (Connection connection = this.getConnection()) {
+            Statement statement = connection.createStatement();
+            return statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    private int deleteEmployeedataUsingStatement(String name) {
+        String sql = String.format("update employee_payroll set isActive = 'False' where name = '%s';", name);
         try (Connection connection = this.getConnection()) {
             Statement statement = connection.createStatement();
             return statement.executeUpdate(sql);
@@ -217,4 +231,6 @@ public class EmployeePayrollDBService {
         }
         return employeePayrollData;
     }
+
+
 }

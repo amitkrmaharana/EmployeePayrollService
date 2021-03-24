@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class EmployeePayrollService {
+
+
     public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_IO}
     public List<EmployeePayroll> employeePayrollList;
     private static EmployeePayrollDBService employeePayrollDBService;
@@ -47,6 +49,10 @@ public class EmployeePayrollService {
         if (result == 0) return;
         EmployeePayroll employeePayrollData = this.getEmployeePayrollData(name);
         if (employeePayrollData != null) employeePayrollData.salary = salary;
+    }
+    public void deleteEmployee(String name) {
+        int result = employeePayrollDBService.deleteEmployeeData(name);
+        if (result == 0) return;
     }
 
     private EmployeePayroll getEmployeePayrollData(String name) {

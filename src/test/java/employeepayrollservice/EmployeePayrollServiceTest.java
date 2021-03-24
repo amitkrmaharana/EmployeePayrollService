@@ -61,7 +61,7 @@ public class EmployeePayrollServiceTest {
         LocalDate startDate = LocalDate.of(2018,01,01);
         LocalDate endDate = LocalDate.now();
         List<EmployeePayroll> employeePayrollData = employeePayrollService.readEmployeePayrollforDateRange(DB_IO, startDate, endDate);
-        Assert.assertEquals(3, employeePayrollData.size());
+        Assert.assertEquals(5, employeePayrollData.size());
     }
     @Test
     public void givenPayrollData_WhenAverageSalaryRetrievedByGender_ShouldReturnPropoerValue() {
@@ -87,6 +87,15 @@ public class EmployeePayrollServiceTest {
         employeePayrollService.addEmployeeToPayroll("Tom",9000000.00,LocalDate.now(),"M", new String[]{"Production"});
         boolean result = employeePayrollService.checkEmployeePayrollSyncWithDB("Tom");
         Assert.assertTrue(result);
+    }
+    @Test
+    public void givenEmployeeName_WhenDeleted_ShouldChange_ItsActivitityToFalse() {
+        EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+        employeePayrollService.readEmployeePayrollData(DB_IO);
+        employeePayrollService.deleteEmployee("Terisa");
+        boolean result = employeePayrollService.checkEmployeePayrollSyncWithDB("Terisa");
+        Assert.assertTrue(result);
+
     }
 }
 

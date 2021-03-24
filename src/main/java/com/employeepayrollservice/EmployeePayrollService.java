@@ -1,10 +1,7 @@
 package com.employeepayrollservice;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class EmployeePayrollService {
 
@@ -16,6 +13,32 @@ public class EmployeePayrollService {
             System.out.println("Employee Added: " + employeePayrollData.name);
         });
         System.out.println(this.employeePayrollList);
+    }
+
+    public void addEmployeeToPayrollWithThreads(List<EmployeePayroll> employeePayrollDataList) {
+        Map<Integer, Boolean> employeeAdditionStatus = new HashMap<>();
+        employeePayrollDataList.forEach(employeePayrollData -> {
+            // The task to be performed
+            Runnable task = () -> {
+            employeeAdditionStatus.put(employeePayrollData.hashCode(), false);
+            System.out.println("Employee Being Added: " + Thread.currentThread().getName());
+            this.addEmployeeToPayroll(employeePayrollData.name,employeePayrollData.salary,employeePayrollData.start,employeePayrollData.gender);
+            employeeAdditionStatus.put(employeePayrollData.hashCode(), true);
+             System.out.println("Employee Added: " + Thread.currentThread().getName());
+            };
+            //Threads implemented here
+            Thread thread = new Thread(task, employeePayrollData.name);
+            thread.start();
+        });
+        while (employeeAdditionStatus.containsValue(false)); {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+
     }
 
     public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_IO}

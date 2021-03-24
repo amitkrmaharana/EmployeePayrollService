@@ -1,6 +1,7 @@
 package com.employeepayrollservice;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class EmployeePayroll {
     protected int id;
@@ -30,6 +31,11 @@ public class EmployeePayroll {
         this(id, name, salary, start);
         this.department = department;
 
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, salary, start, gender);
     }
 
     @Override

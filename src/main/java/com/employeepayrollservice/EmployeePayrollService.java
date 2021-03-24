@@ -9,6 +9,15 @@ import java.util.Scanner;
 public class EmployeePayrollService {
 
 
+    public void addEmployeesToPayroll(List<EmployeePayroll> employeePayrollDataList) {
+        employeePayrollDataList.forEach(employeePayrollData -> {
+            System.out.println("Employee Being Added: " + employeePayrollData.name);
+            this.addEmployeeToPayroll(employeePayrollData.name,employeePayrollData.salary,employeePayrollData.start,employeePayrollData.gender);
+            System.out.println("Employee Added: " + employeePayrollData.name);
+        });
+        System.out.println(this.employeePayrollList);
+    }
+
     public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_IO}
     public List<EmployeePayroll> employeePayrollList;
     private static EmployeePayrollDBService employeePayrollDBService;
@@ -26,6 +35,9 @@ public class EmployeePayrollService {
 
     public void addEmployeeToPayroll(String name, double salary, LocalDate startDate, String gender, String[] department) {
         employeePayrollList.add(employeePayrollDBService.addEmployeeToPayroll(name,salary,startDate,gender,department));
+    }
+    public void addEmployeeToPayroll(String name, double salary, LocalDate startDate, String gender) {
+        employeePayrollList.add(employeePayrollDBService.addEmployeeToPayroll(name,salary,startDate,gender));
     }
 
 
@@ -102,7 +114,7 @@ public class EmployeePayrollService {
     public long countEntries(IOService ioService) {
         if (ioService.equals(IOService.FILE_IO))
             return new EmployeePayrollFileIOService().countEntries();
-        return 0;
+        return employeePayrollList.size();
     }
     public static void main(String[] args) {
         System.out.println("Welcome to the Employee Payroll Service program");

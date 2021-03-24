@@ -7,6 +7,7 @@ public class EmployeePayroll {
     protected String name;
     protected double salary;
     protected LocalDate start;
+    protected String gender;
     protected String[] department;
 
     public EmployeePayroll(int id, String name, Double salary) {
@@ -20,7 +21,12 @@ public class EmployeePayroll {
         this.start = start;
     }
 
-    public EmployeePayroll(int id, String name, double salary, LocalDate start,String gender, String[] department) {
+    public EmployeePayroll(int id, String name, String gender, double salary, LocalDate start) {
+        this(id, name, salary, start);
+        this.gender = gender;
+    }
+
+    public EmployeePayroll(int id, String name, double salary, LocalDate start, String gender, String[] department) {
         this(id, name, salary, start);
         this.department = department;
 

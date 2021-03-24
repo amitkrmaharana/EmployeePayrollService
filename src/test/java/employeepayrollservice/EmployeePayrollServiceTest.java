@@ -5,6 +5,8 @@ import com.employeepayrollservice.EmployeePayrollService;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -95,7 +97,24 @@ public class EmployeePayrollServiceTest {
         employeePayrollService.deleteEmployee("Terisa");
         boolean result = employeePayrollService.checkEmployeePayrollSyncWithDB("Terisa");
         Assert.assertTrue(result);
-
+    }
+    @Test
+    public void given6Employees_WhenAddedToDB_ShouldmatchEmployeeEntries() {
+        EmployeePayroll[] arrayOfEmps = {
+          new EmployeePayroll(0,"Jeff Bezos", "M", 100000.00, LocalDate.now() ),
+          new EmployeePayroll(0,"Bill Gates", "M", 200000.00, LocalDate.now()),
+          new EmployeePayroll(0,"Mark Zuckerberg", "M", 300000.00, LocalDate.now()),
+          new EmployeePayroll(0,"Sunder", "M", 600000.00, LocalDate.now()),
+          new EmployeePayroll(0,"Mukesh", "M", 1000000.00, LocalDate.now()),
+          new EmployeePayroll(0,"Anil", "M", 200000.00, LocalDate.now())
+        };
+        EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+        employeePayrollService.readEmployeePayrollData(DB_IO);
+        Instant start = Instant.now();
+        employeePayrollService.addEmployeesToPayroll(Arrays.asList(arrayOfEmps));
+        Instant end = Instant.now();
+        System.out.println("Duration without thread: " + Duration.between(start,end));
+        Assert.assertEquals(7,employeePayrollService.countEntries(DB_IO));
     }
 }
 

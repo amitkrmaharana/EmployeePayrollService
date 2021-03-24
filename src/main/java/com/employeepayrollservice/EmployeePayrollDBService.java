@@ -138,7 +138,7 @@ public class EmployeePayrollDBService {
         return genderToAverageSalaryMap;
     }
 
-    public EmployeePayroll addEmployeeToPayrollUC7(String name, double salary, LocalDate startDate, String gender) {
+    public EmployeePayroll addEmployeeToPayroll(String name, double salary, LocalDate startDate, String gender) {
         int emploeeId = -1;
         EmployeePayroll employeePayrollData = null;
         String sql = String.format("insert into employee_payroll (name, gender, salary, start)" +

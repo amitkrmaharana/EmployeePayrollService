@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class EmployeePayroll {
     public int id;
-    protected String name;
+    public String name;
     protected double salary;
     protected LocalDate start;
     protected String gender;

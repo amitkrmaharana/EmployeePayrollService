@@ -47,6 +47,13 @@ public class EmployeePayrollService {
 
     }
 
+    public void deleteEmployeePayroll(String name, IOService ioService) {
+        if (ioService.equals(IOService.REST_IO)) {
+            EmployeePayroll employeePayrollData = this.getEmployeePayrollData(name);
+            employeePayrollList.remove(employeePayrollData);
+        }
+    }
+
     public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_IO}
     public List<EmployeePayroll> employeePayrollList;
     private static EmployeePayrollDBService employeePayrollDBService;

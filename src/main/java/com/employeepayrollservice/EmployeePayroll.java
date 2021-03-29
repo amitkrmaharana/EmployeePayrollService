@@ -54,6 +54,6 @@ public class EmployeePayroll {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EmployeePayroll that = (EmployeePayroll) o;
-        return id == that.id && Double.compare(that.salary, salary) == 0 && Objects.equals(name, that.name) && Objects.equals(start, that.start) && Objects.equals(gender, that.gender);
+        return id == that.id && Double.compare(that.salary, salary) == 0 && Objects.equals(name, that.name);
     }
 }

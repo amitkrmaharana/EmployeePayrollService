@@ -2,8 +2,13 @@ package employeepayrollservice;
 
 import com.employeepayrollservice.EmployeePayroll;
 import com.employeepayrollservice.EmployeePayrollService;
+import com.google.gson.Gson;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -12,8 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static com.employeepayrollservice.EmployeePayrollService.IOService.DB_IO;
-import static com.employeepayrollservice.EmployeePayrollService.IOService.FILE_IO;
+import static com.employeepayrollservice.EmployeePayrollService.IOService.*;
 
 public class EmployeePayrollServiceTest {
     @Test
@@ -120,5 +124,29 @@ public class EmployeePayrollServiceTest {
         System.out.println("Duration with Threads: " + Duration.between(threadStart,threadEnd));
         Assert.assertEquals(13,employeePayrollService.countEntries(DB_IO));
     }
+
+    @Before
+    public void setup() {
+        RestAssured.baseURI = "http://localhost/";
+        RestAssured.port = 3000;
+    }
+
+    public EmployeePayroll[] getemployeeList() {
+        Response response = RestAssured.get("/employees");
+        System.out.println("Employee Payroll Entries in JsonServer:\n" + response);
+        EmployeePayroll[] arrayOfEmp = new Gson().fromJson(response.asString(), EmployeePayroll[].class);
+        return arrayOfEmp;
+    }
+
+    @Test
+    public void givenEmployeeDataInJsonServer_WhenRetrieved_ShouldMatchTheCount() {
+        EmployeePayroll[] arrayOfEmps;
+        arrayOfEmps = getemployeeList();
+        EmployeePayrollService employeePayrollService;
+        employeePayrollService = new EmployeePayrollService(Arrays.asList(arrayOfEmps));
+        long entries = employeePayrollService.countEntries(REST_IO);
+        Assert.assertEquals(2,entries);
+    }
+
 }
 

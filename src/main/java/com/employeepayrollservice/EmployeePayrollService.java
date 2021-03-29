@@ -62,11 +62,6 @@ public class EmployeePayrollService {
         employeePayrollList.add(employeePayrollDBService.addEmployeeToPayroll(name,salary,startDate,gender));
     }
 
-
-    public EmployeePayrollService() {
-        employeePayrollDBService = new EmployeePayrollDBService().getInstance();
-    }
-
     public List<EmployeePayroll> readEmployeePayrollData(IOService ioService) {
         if (ioService.equals(IOService.DB_IO))
             this.employeePayrollList = employeePayrollDBService.readData();
@@ -96,10 +91,11 @@ public class EmployeePayrollService {
                 .orElse(null);
     }
 
+    public EmployeePayrollService() {employeePayrollDBService = EmployeePayrollDBService.getInstance();}
 
     public EmployeePayrollService(List<EmployeePayroll> employeePayrollList) {
         this();
-        this.employeePayrollList = employeePayrollList;
+        this.employeePayrollList = new ArrayList<>(employeePayrollList);
     }
 
     public void writeEmployeePayroll(IOService ioService) {

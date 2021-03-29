@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class EmployeePayroll {
-    protected int id;
+    public int id;
     protected String name;
     protected double salary;
     protected LocalDate start;

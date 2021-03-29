@@ -9,9 +9,7 @@ import io.restassured.specification.RequestSpecification;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 
-import java.awt.geom.GeneralPath;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -58,7 +56,7 @@ public class EmployeePayrollServiceTest {
     public void givenNewSalaryForEmployee_whenUpdated_shouldSync() {
         EmployeePayrollService employeePayrollService = new EmployeePayrollService();
         List<EmployeePayroll> employeePayrollData = employeePayrollService.readEmployeePayrollData(DB_IO);
-        employeePayrollService.updateEmployeeSalary("Terisa",3000000.00);
+        employeePayrollService.updateEmployeeSalary("Terisa",3000000.00, REST_IO);
         boolean result = employeePayrollService.checkEmployeePayrollSyncWithDB("Terisa");
         Assert.assertTrue(result);
     }
@@ -197,6 +195,24 @@ public class EmployeePayrollServiceTest {
 
         long entries = employeePayrollService.countEntries(REST_IO);
         Assert.assertEquals(6,entries);
+    }
+
+    @Test
+    public void givenNewSalaryForEmployee_WhenUpdated_ShouldMatch200Response() {
+        EmployeePayroll[] arrayOfEmps;
+        arrayOfEmps = getemployeeList();
+        EmployeePayrollService employeePayrollService;
+        employeePayrollService = new EmployeePayrollService(Arrays.asList(arrayOfEmps));
+
+        employeePayrollService.updateEmployeeSalary("Anil",300000.00,REST_IO);
+        EmployeePayroll employeePayrollData = employeePayrollService.getEmployeePayrollData("Anil");
+
+        String empJson = new Gson().toJson(employeePayrollData);
+        RequestSpecification request = RestAssured.given();
+        request.header("Content-Type","application/json");
+        request.body(empJson);
+        Response response = request.put("/employees/" + employeePayrollData.id);
+        Assert.assertEquals(200,response.getStatusCode());
     }
 
 }

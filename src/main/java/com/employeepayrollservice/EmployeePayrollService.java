@@ -80,7 +80,7 @@ public class EmployeePayrollService {
         return employeePayrollDataList.get(0).equals(getEmployeePayrollData(name));
     }
 
-    public void updateEmployeeSalary(String name, double salary) {
+    public void updateEmployeeSalary(String name, double salary, IOService restIo) {
         int result = employeePayrollDBService.updateEmployeeData(name,salary);
         if (result == 0) return;
         EmployeePayroll employeePayrollData = this.getEmployeePayrollData(name);
@@ -91,7 +91,7 @@ public class EmployeePayrollService {
         if (result == 0) return;
     }
 
-    private EmployeePayroll getEmployeePayrollData(String name) {
+    public EmployeePayroll getEmployeePayrollData(String name) {
         return this.employeePayrollList.stream()
                 .filter(employeePayrollDataItem -> employeePayrollDataItem.name.equals(name))
                 .findFirst()

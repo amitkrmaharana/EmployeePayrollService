@@ -40,6 +40,13 @@ public class EmployeePayrollService {
         System.out.println(employeePayrollDataList);
     }
 
+    public void addEmployeeToPayroll(EmployeePayroll employeePayrollData, IOService ioService) {
+        if(ioService.equals(IOService.DB_IO))
+            this.addEmployeeToPayroll(employeePayrollData.name,employeePayrollData.salary,employeePayrollData.start,employeePayrollData.gender);
+        else employeePayrollList.add(employeePayrollData);
+
+    }
+
     public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_IO}
     public List<EmployeePayroll> employeePayrollList;
     private static EmployeePayrollDBService employeePayrollDBService;
